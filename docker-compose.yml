@@ -1,0 +1,41 @@
+version: "3"
+services:
+  vprodb:
+    image: dodexq/vprodb_i
+    ports:
+      - 6603:3306
+    volumes:
+      - voldb:/var/lib/mysql
+    links:
+      - vproapp
+      - vprocache01
+      - vpromq01
+  vprocache01:
+    image: dodexq/vprocache01_i
+    ports:
+      - 11211:11211
+    links:
+      - vpromq01
+  vpromq01:
+    image: dodexq/vpromq01_i
+    ports:
+      - 5672:5672
+    links:
+      - vproapp
+  vproapp:
+    image: dodexq/vproapp_i
+    ports:
+      - 8090:8080
+    volumes:
+      - volapp:/usr/local/tomcat/webapps
+  vproweb:
+    image: dodexq/vproweb_i
+    ports:
+      - 80:80
+    links:
+      - vproapp
+volumes:
+  voldb:
+    external: true
+  volapp:
+    external: true
