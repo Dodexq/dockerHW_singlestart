@@ -13,6 +13,7 @@
 
 ## Docker-compose
 `/docker-compose.yml`
+Перед запуском требуется `docker create volume volapp voldb`
 
 Бросил искать способ sleep перед запуском каждого контейнера. При первом запуске 404, необходимо перезапустить docker-compose:
 `docker-compose stop` / `docker-compose start`
